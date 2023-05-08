@@ -1,9 +1,11 @@
 const express = require("express");
 const { connectToDb, db } = require("../db");
+const { authMiddleware } = require('./authMiddleware.js')
+
 
 const orders = express.Router();
 
-orders.get("/", async (req, res) => {
+orders.get("/", authMiddleware, async (req, res) => {
     const orders = await db.orders.find().toArray();
     res.status(200).json({
       message: "Success",
@@ -11,7 +13,7 @@ orders.get("/", async (req, res) => {
     });
   });
 
-  orders.get("/", async (req, res) => {
+  orders.get("/", authMiddleware, async (req, res) => {
     const orders = await db.orders.find().toArray();
     const lowQuantity = req.query.lowQuantity;
     if (lowQuantity){

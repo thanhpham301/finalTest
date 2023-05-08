@@ -3,6 +3,9 @@ const { connectToDb, db } = require("./db");
 const {orders} = require("./routes/orders.js")
 const {inventories} = require("./routes/inventories.js")
 const {users} = require("./routes/users.js")
+const {login} = require("./routes/login.js")
+const { description } = require("./routes/description.js")
+
 
 const app = express();
 
@@ -21,6 +24,10 @@ async function main() {
     app.use("/api/v1/orders", orders);
     app.use("/api/v1/inventories", inventories);
     app.use("/api/v1/users", users);
+    app.use("/api/v1/login", login);
+    app.use("/api/v1/description", description);
+
+
 
     // run server
     app.listen(3000, () => {
